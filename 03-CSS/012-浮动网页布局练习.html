@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>012-浮动网页布局练习.html</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.w{
+			width: 960px;
+			margin: 0 auto;
+		}
+		.clearfix:after{
+			content: '';
+			display: block;
+			clear: both;
+			visibility: hidden;
+			height: 0px;
+		}
+		/*
+		头部
+		*/
+		header{
+			height: 100px;
+			background: black;	
+		}
+		header.w{
+			margin-bottom: 10px;
+		}
+		header .logo{
+			width: 100px;
+			height: 100%;
+			background: tomato;
+			float: left;
+		}
+		header .userinfo{
+			width: 200px;
+			height: 50px;
+			background: gray;
+			float: right;
+		}
+		header nav{
+			width: 750px;
+			height: 50px;
+			background: purple;
+			float: right;
+		}
+		/*
+		内容
+		*/		
+		section{
+			height: 800px;
+			background: gray;
+		}
+		/*
+		尾部
+		*/		
+		footer{
+			height: 100px;
+			background: blue;
+		}
+	</style>
+</head>
+<body>
+	<header class="w">
+		<div class="logo"></div>
+		<div class="userinfo"></div>
+		<nav></nav>
+	</header>
+	<section class="w"></section>
+	<footer class="w"></footer>
+</body>
+</html>
