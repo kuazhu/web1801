@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>18-平滑过渡页面综合练习.html</title>
+	<link rel="stylesheet" href="css/fontawesome-all.css">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.container input,.container a{
+			position: fixed;
+			top:0;
+			width: 20%;
+			height: 34px;
+			line-height: 34px;
+		}
+		.container a{
+			background: red;
+		}
+		#ctr1,#ctr1+a{
+			left:0%;
+		}
+		#ctr2,#ctr2+a{
+			left:20%;
+		}
+		#ctr3,#ctr3+a{
+			left:40%;
+		}	
+		#ctr4,#ctr4+a{
+			left:60%;
+		}	
+		#ctr5,#ctr5+a{
+			left:80%;
+		}
+		.container input{
+			z-index: 1000;
+			opacity: 0;
+			cursor: pointer;
+		}
+		.container a{
+			z-index: 10;
+			text-align: center;
+			text-decoration: none;
+			font-size: 18px;
+			color: white;
+			font-weight: bold;
+		}
+		.container input:checked + a,
+		.container input:checked:hover + a{
+			background: yellow;
+		}
+		.container input:hover + a {
+			background: #ccc;
+		}								
+	</style>
+</head>
+<body>
+	<div class="container">
+		<input type="radio" name='radion-set' id='ctr1' checked="checked">
+		<a href="#">Home</a>
+		<input type="radio" name='radion-set' id='ctr2'>
+		<a href="#">Service</a>	
+		<input type="radio" name='radion-set' id='ctr3'>
+		<a href="#">About</a>
+		<input type="radio" name='radion-set' id='ctr4'>
+		<a href="#">Team</a>
+		<input type="radio" name='radion-set' id='ctr5'>
+		<a href="#">Contact</a>										
+	</div>
+</body>
+</html>
