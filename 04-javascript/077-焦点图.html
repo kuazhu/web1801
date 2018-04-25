@@ -14,7 +14,7 @@
 		.carousel{
 			width: 1226px;
 			height: 460px;
-			background: red;
+			/*background: red;*/
 			position: absolute;
 			left:0;
 			top:0;	
@@ -71,6 +71,7 @@
 		 	background: red;
 		 }
 	</style>
+	<script src="js/tool.js"></script>
 	<script>
 		window.onload = function(){
 			var aImgLi = document.getElementById('imgBox').children;
@@ -98,9 +99,11 @@
 			function tab(){
 				for(var i = 0;i<aBtnLi.length;i++){
 					aImgLi[i].style.zIndex = 0;
+					aImgLi[i].style.opacity = 0;
 					aBtnLi[i].className = '';
 				}
 				aImgLi[now].style.zIndex = 30;
+				animation(aImgLi[now],{'opacity':100},false);
 				aBtnLi[now].className = 'active';		
 			}
 			for(var i = 0;i<aBtnLi.length;i++){
@@ -112,14 +115,14 @@
 			}
 			timer = setInterval(function(){
 				oNextBtn.onclick();			
-			},1000)
+			},3000)
 			oBox.onmouseover = function(){
 				clearInterval(timer);
 			}
 			oBox.onmouseout = function(){
 				timer = setInterval(function(){
 					oNextBtn.onclick();			
-				},1000)
+				},3000)
 			}
 
 		}
