@@ -8,6 +8,9 @@
 			margin: 0;
 			padding: 0;
 		}
+		body{
+			overflow: hidden;
+		}
 		#bird{
 			width: 30px;
 			height: 30px;
@@ -18,26 +21,24 @@
 			margin-left: -15px;
 		}
 		.topLine{
-			width: 50px;
-			height: 100px;
-			background: green;
 			position: absolute;
-			left:99%;
-			top:0;
+			width: 50px;
+			background: green;
+			top: 0;
+			left:100%;
 		}
 		.bottomLine{
-			width: 50px;
-			height: 100px;
-			background: green;
 			position: absolute;
-			left:99%;
-			bottom:0;
+			width: 50px;
+			background: green;
+			bottom: 0;
+			left:100%;
 		}		
 	</style>
 	<script>
-		
-		function getRandomNum(min,max) {
-			return Math.round(min+(max-min)*Math.random());
+		function getRandom(min,max) {
+			
+			return Math.round(min + (max-min)*Math.random());
 		}
 		function checkKiss(obj1,obj2){
 			if(
@@ -51,61 +52,54 @@
 				return false;
 			}
 		}
+
 		var moveBirdTimer = null;
 		var addLineTimer = null;
 		var moveLineTimer = null;
-
 		window.onload = function(){
 			var oBird = document.getElementById('bird');
 
 			function addLine(){
-
 				var oTopLine = document.createElement('div');
 				var oBottomLine = document.createElement('div');
 				oTopLine.className = 'topLine';
-				oBottomLine.className = 'bottomLine'
-				oTopLine.leftData = 100;
-
-				var h = getRandomNum(300,500);
-				oTopLine.style.height = h + 'px';
-
-				oBottomLine.style.height = window.innerHeight - h - 300 + 'px';
+				oBottomLine.className = 'bottomLine';
+				oTopLine.data = 100;
+				var h = getRandom(300,500);
+				oTopLine.style.height = h +'px';
+				oBottomLine.style.height = window.innerHeight - 300 - h + 'px';
 
 				document.body.appendChild(oTopLine);
 				document.body.appendChild(oBottomLine);
 			}
+
+			// addLine();
 			clearInterval(addLineTimer);
 			addLineTimer = setInterval(function(){
 				addLine();
-			},800)
+			},800);
 
 			clearInterval(moveLineTimer);
 			moveLineTimer = setInterval(function(){
 				var aTopLine = document.getElementsByClassName('topLine');
-				var aBottomLine = document.getElementsByClassName('bottomLine');
-
+				var aBottomLine = document.getElementsByClassName('bottomLine');				
 				for(var i = 0;i<aTopLine.length;i++){
 					if(checkKiss(oBird,aTopLine[i]) || checkKiss(oBird,aBottomLine[i])){
 						die();
 					}
-
-					if(aTopLine[i].leftData == '-10'){
+					if(aTopLine[i].data == '-10'){
 						document.body.removeChild(aTopLine[i]);
-						document.body.removeChild(aBottomLine[i]);
-						continue;
+						document.body.removeChild(aBottomLine[i]);						
 					}
 
-
-					aBottomLine[i].style.left = aTopLine[i].style.left = aTopLine[i].leftData - 1 + '%';
-					aTopLine[i].leftData = aTopLine[i].leftData - 1;
+					aBottomLine[i].style.left = aTopLine[i].style.left = aTopLine[i].data - 1 + '%';
+					aTopLine[i].data = aTopLine[i].data - 1;
 				}
-
-			},30)			
+			},30)
 			
-		
-			clearInterval(moveBirdTimer);
 			var iSpeed = 0;
 			var isDie = false;
+			clearInterval(moveBirdTimer);
 			moveBirdTimer = setInterval(function(){
 				iSpeed += 1;
 				var t = oBird.offsetTop + iSpeed;
@@ -114,28 +108,25 @@
 					t = 0;
 				}else if(t >= window.innerHeight - oBird.offsetHeight){
 					die();
-					t = window.innerHeight - oBird.offsetHeight;
+					t = window.innerHeight - oBird.offsetHeight;					
 				}
 				oBird.style.top = t + 'px';
 			},30)
 
 			document.onkeydown = function(){
-				// alert(11);
 				if(isDie){
 					return false;
 				}
-				iSpeed -= 30;
+				iSpeed -= 20;
 			}
 			function die(){
-				clearInterval(moveBirdTimer);
+				isDie = true;
 				clearInterval(addLineTimer);
 				clearInterval(moveLineTimer);
-				isDie = true;
-				iSpeed = 0;	
+				clearInterval(moveBirdTimer);				
 			}
 		}
 	</script>
-
 </head>
 <body>
 	<div id="bird"></div>
