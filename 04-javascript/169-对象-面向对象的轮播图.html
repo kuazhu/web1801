@@ -47,12 +47,17 @@
 		.bottomBtn li.active{
 			background: rgba(255,255,0,0.5);
 		}
+		#div2 .bottomBtn li.active{
+			background: rgba(255,0,0,0.8);
+		}
 	</style>
 </head>
 <body>
 	<div id="div1">
 	</div>
+	<div id="div2"></div>
 </body>
+<script src="js/tool.js"></script>
 <script>
 	function Carousel(option){
 		//罗列属性
@@ -65,11 +70,16 @@
 		this.leftBtn = null;
 		this.rightBtn = null;
 		this.oBottomBtn = null;
+		this.playDuration = option.playDuration;
 		this.now = 0;
 		//初始化
 		this.init();
 		//绑定事件
 		this.bindEvent();
+
+		if(this.playDuration){
+			this.autoPlay();
+		}
 	}
 	Carousel.prototype.init = function(){
 		//创建方图片的ul容器
@@ -148,7 +158,17 @@
 				this.now = this.oImgUl.children.length - 1;
 			}
 			this.tab();
-		}.bind(this);		
+		}.bind(this);	
+
+		//底部按钮事件
+		var _self = this;
+		for(var i = 0;i<this.oBottomBtn.children.length;i++){
+			this.oBottomBtn.children[i].index = i;
+			this.oBottomBtn.children[i].onclick = function(){
+				_self.now = this.index;
+				_self.tab();
+			}
+		}	
 	}
 	Carousel.prototype.tab = function(){
 		//改变所有的li
@@ -159,8 +179,19 @@
 		}
 		//改变当前的li
 		this.oImgUl.children[this.now].style.zIndex = 50;
-		this.oImgUl.children[this.now].style.opacity = 1;
-		this.oBottomBtn.children[this.now].className = 'active';				
+		// this.oImgUl.children[this.now].style.opacity = 1;
+		this.oBottomBtn.children[this.now].className = 'active';
+		animation(this.oImgUl.children[this.now],{opacity:100});				
+	}
+	Carousel.prototype.autoPlay = function(){
+		var timer = null;
+		timer = setInterval(this.rightBtn.onclick,this.playDuration);
+		this.oBox.onmouseover = function(){
+			clearInterval(timer);
+		}
+		this.oBox.onmouseout = function(){
+			timer = setInterval(this.rightBtn.onclick,this.playDuration);			
+		}.bind(this);
 	}
 	new Carousel({
 		id:'div1',
@@ -170,7 +201,19 @@
 			'images/jd3.jpg'
 		],
 		width:790,
-		height:340
+		height:340,
+		playDuration:3000
 	});
+	new Carousel({
+		id:'div2',
+		aImg:[
+			'images/jd1.jpg',
+			'images/jd2.jpg',
+			'images/jd3.jpg'
+		],
+		width:600,
+		height:300,
+		playDuration:3000
+	});	
 </script>
 </html>
