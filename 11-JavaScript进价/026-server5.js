@@ -2,7 +2,7 @@
 * @Author: TomChen
 * @Date:   2018-05-24 18:08:59
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-05-27 11:24:51
+* @Last Modified time: 2018-05-27 10:23:22
 */
 var http = require('http');
 var fs = require('fs');
@@ -12,8 +12,6 @@ var server = http.createServer(function(req,res){
 	res.setHeader("Content-Type","text/html;charset=UTF-8");
 	res.setHeader("Access-Control-Allow-Origin","http://127.0.0.1:3000");
 	// res.setHeader("Access-Control-Allow-Origin","*");
-	res.setHeader("Access-Control-Allow-Headers","test");
-	res.setHeader("Access-Control-Expose-Headers","Date");
 	var urlStr = req.url;
 	console.log("req url:::",urlStr);
 	//如果请求的是/favicon.ico直接返回
@@ -65,6 +63,6 @@ var server = http.createServer(function(req,res){
 
 });
 
-server.listen(3000,'127.0.0.1',function(){
-	console.log("server is running at http://127.0.0.1:3000");
+server.listen(3001,'127.0.0.1',function(){
+	console.log("server is running at http://127.0.0.1:3001");
 })
