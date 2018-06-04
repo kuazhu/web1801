@@ -2,7 +2,7 @@
 * @Author: TomChen
 * @Date:   2018-06-03 11:37:17
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-06-04 20:13:19
+* @Last Modified time: 2018-06-04 20:46:33
 */
 //kQuery的基本结构是一个闭包
 (function(window, undefined){
@@ -14,6 +14,7 @@ var
 //kQuery的原型对象
 kQuery.fn = kQuery.prototype = {
 	constructor:kQuery,
+	//核心函数
 	init:function(selector){
 		selector = kQuery.trim(selector);
 		//布尔值是假的情况返回空的jquery对象
@@ -57,6 +58,18 @@ kQuery.fn = kQuery.prototype = {
 				return this;
 			}	
 		}
+		else if(kQuery.isArray(selector)){
+			//由于apply转伪数组有兼容问题(IE8以下不兼容),所以把所有传入的数组转换成真数组
+			var tmpArr = [].slice.call(selector);
+			
+			//把转换后的真数组转换成伪数组
+			[].push.apply(this,tmpArr);
+			return this;
+		}else{
+			this[0] = selector;
+			this.length = 1;
+			return this;
+		}
 	}
 }
 
@@ -69,6 +82,12 @@ kQuery.isString = function(str){
 }
 kQuery.isHTML = function(str){
 	return str.charAt(0) == '<' && str.charAt(str.length-1) == '>' && str.length >= 3;
+}
+kQuery.isArray = function(str){
+	return kQuery.isObject(str) && length in str 
+}
+kQuery.isObject = function(str){
+	return typeof str === 'object';
 }
 kQuery.trim = function(str){
 	if(kQuery.isString(str)){
