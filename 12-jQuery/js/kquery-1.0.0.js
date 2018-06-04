@@ -2,7 +2,7 @@
 * @Author: TomChen
 * @Date:   2018-06-03 11:37:17
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-06-04 19:19:12
+* @Last Modified time: 2018-06-04 20:13:19
 */
 //kQuery的基本结构是一个闭包
 (function(window, undefined){
@@ -15,6 +15,7 @@ var
 kQuery.fn = kQuery.prototype = {
 	constructor:kQuery,
 	init:function(selector){
+		selector = kQuery.trim(selector);
 		//布尔值是假的情况返回空的jquery对象
 		if(!selector){
 			return this;
@@ -34,19 +35,25 @@ kQuery.fn = kQuery.prototype = {
 				var tmpDom = document.createElement('div');
 				tmpDom.innerHTML = selector;
 				// console.log(tmpDom.children);
+				/*
 				for(var i = 0;i<tmpDom.children.length;i++){
 					this[i] =  tmpDom.children[i];
 				}
 				this.length = tmpDom.children.length;
+				*/
+				[].push.apply(this,tmpDom.children);
 				return this;
 			//选择器处理	
 			}else{
 				var doms = document.querySelectorAll(selector);
 				// console.log(doms);
+				/*
 				for(var i = 0;i<doms.length;i++){
 					this[i] = doms[i];
 				}
 				this.length = doms.length;
+				*/
+				[].push.apply(this,doms);
 				return this;
 			}	
 		}
@@ -63,6 +70,16 @@ kQuery.isString = function(str){
 kQuery.isHTML = function(str){
 	return str.charAt(0) == '<' && str.charAt(str.length-1) == '>' && str.length >= 3;
 }
+kQuery.trim = function(str){
+	if(kQuery.isString(str)){
+		//用正则去掉字符串的前后空格
+		return str.replace(/^\s+|\s+$/g,'');
+	}else{
+		return str;
+	}	
+}
+
+
 kQuery.fn.init.prototype = kQuery.fn;
 
 
