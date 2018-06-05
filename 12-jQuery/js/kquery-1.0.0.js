@@ -2,7 +2,7 @@
 * @Author: TomChen
 * @Date:   2018-06-03 11:37:17
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-06-05 20:11:25
+* @Last Modified time: 2018-06-05 20:43:35
 */
 //kQuery的基本结构是一个闭包
 (function(window, undefined){
@@ -104,6 +104,12 @@ kQuery.fn = kQuery.prototype = {
 	},
 	last:function(){
 		return this.eq(-1);
+	},
+	each:function(fn){
+		return kQuery.each(this,fn);
+	},
+	map:function(fn){
+		return kQuery(kQuery.map(this,fn));
 	}	
 }
 

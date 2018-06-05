@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>064-each和map测试.html</title>
-	<script src="js/jquery-1.12.4.js"></script>
-	<!-- <script src="js/kquery-1.0.0.js"></script> -->
+	<!-- <script src="js/jquery-1.12.4.js"></script> -->
+	<script src="js/kquery-1.0.0.js"></script>
 	<script>
 		$(function(){
 			var aLi = document.getElementsByTagName('li');
@@ -37,16 +37,39 @@
 			// 	console.log(this);
 			// })
 			// console.log(res);
-			var res = $.map(arr,function(value,index){
-				console.log(this);
-				// console.log(value,index)
-				// if(index==0){
-				// 	return value;
-				// }
-				// return value + 10;
+			// var res = $.map(arr,function(value,index){
+			// 	console.log(this);
+			// 	// console.log(value,index)
+			// 	// if(index==0){
+			// 	// 	return value;
+			// 	// }
+			// 	// return value + 10;
+				
+			// });
+			// console.log(res);
+			// var res = $('li').each(function(index,value){
+			// 	// console.log('aa');
+			// 	console.log(index,value)
+			// 	// console.log(this);
+			// });
+			// console.log(res);
+			// $('li').each(function(index,value){
+			// 	console.log(index,value);
+			// })
+
+			// $.each($('li'),function(index,value){
+			// 	console.log(index,value);
+			// })
+
+			
+			var res = $('li').map(function(value,index){
+				if(index == 0){
+					return value;
+				}
 				
 			});
 			console.log(res);
+
 		})
 	</script>
 </head>
