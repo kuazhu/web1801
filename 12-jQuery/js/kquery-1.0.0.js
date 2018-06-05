@@ -2,7 +2,7 @@
 * @Author: TomChen
 * @Date:   2018-06-03 11:37:17
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-06-04 20:46:33
+* @Last Modified time: 2018-06-05 20:11:25
 */
 //kQuery的基本结构是一个闭包
 (function(window, undefined){
@@ -28,7 +28,6 @@ kQuery.fn = kQuery.prototype = {
 			});
 			this[0] = document;
 			this.length = 1;
-			return this;
 		//处理字符串	
 		}else if(kQuery.isString(selector)){
 			//HTML代码处理
@@ -43,7 +42,6 @@ kQuery.fn = kQuery.prototype = {
 				this.length = tmpDom.children.length;
 				*/
 				[].push.apply(this,tmpDom.children);
-				return this;
 			//选择器处理	
 			}else{
 				var doms = document.querySelectorAll(selector);
@@ -55,7 +53,6 @@ kQuery.fn = kQuery.prototype = {
 				this.length = doms.length;
 				*/
 				[].push.apply(this,doms);
-				return this;
 			}	
 		}
 		else if(kQuery.isArray(selector)){
@@ -64,39 +61,128 @@ kQuery.fn = kQuery.prototype = {
 			
 			//把转换后的真数组转换成伪数组
 			[].push.apply(this,tmpArr);
-			return this;
 		}else{
 			this[0] = selector;
 			this.length = 1;
-			return this;
 		}
+		return this;
+	},
+	selector: "",
+	length: 0,
+	jquery:'1.0.0',
+	//以下方法在调用时是kquery对象调用,所以方法内部的this指向调用的kquery对象
+	push: [].push,
+	sort: [].sort,
+	splice: [].splice,
+	toArray:function(){
+		return [].slice.call(this);
+	},
+	get:function(num){
+		if(arguments.length == 1){
+			//正数
+			if(num>=0){
+				return this[num];
+			//负数	
+			}else{
+				// -1 4 = 3
+				// -2 4 = 2
+				return this[this.length + num]
+			}
+		}else{
+			return this.toArray();
+		}
+	},
+	eq:function(num){
+		if(arguments.length == 1){
+			return kQuery(this.get(num));
+		}else{
+			return new kQuery();
+		}
+	},
+	first:function(){
+		return this.eq(0);
+	},
+	last:function(){
+		return this.eq(-1);
+	}	
+}
+
+kQuery.extend = kQuery.fn.extend  = function(obj){
+	for(key in obj){
+		this[key] = obj[key];
 	}
 }
 
-kQuery.isFunction = function(str){
-	return typeof str === 'function';
-}
+//kQuery的静态方法
+kQuery.extend({
+	isFunction:function(str){
+		return typeof str === 'function';
+	},
+	isString:function(str){
+		return typeof str === 'string';
+	},
+	isHTML:function(str){
+		return str.charAt(0) == '<' && str.charAt(str.length-1) == '>' && str.length >= 3;
+	},
+	isArray:function(str){
+		return kQuery.isObject(str) && length in str 
+	},
+	isObject:function(str){
+		return typeof str === 'object';
+	},
+	trim:function(str){
+		if(kQuery.isString(str)){
+			//用正则去掉字符串的前后空格
+			return str.replace(/^\s+|\s+$/g,'');
+		}else{
+			return str;
+		}	
+	},
+	each:function(arr,fn){
+		if(kQuery.isArray(arr)){
+			for(var i = 0;i<arr.length;i++){
+				// console.log(i,arr[i]);
+				var res = fn.call(arr[i],i,arr[i]);
+				if(res == false){
+					break;
+				}else if(res == true){
+					continue;
+				}
+			}
+		}else{
+			for(key in arr){
+				// console.log(key,arr[key]);
+				var res = fn.call(arr[key],key,arr[key]);
+				if(res == false){
+					break;
+				}else if(res == true){
+					continue;
+				}				
+			}
+		}
+		return arr;
+	},
+	map:function(arr,fn){
+		var retArr = [];
+		if(kQuery.isArray(arr)){
+			for(var i = 0;i<arr.length;i++){
+				var res = fn(arr[i],i);
+				if(res){
+					retArr.push(res);
+				}
+			}
+		}else{
+			for(key in arr){
+				var res = fn(arr[key],key);
+				if(res){
+					retArr.push(res);
+				}
+			}
+		}
+		return retArr;
+	}
+});
 
-kQuery.isString = function(str){
-	return typeof str === 'string';
-}
-kQuery.isHTML = function(str){
-	return str.charAt(0) == '<' && str.charAt(str.length-1) == '>' && str.length >= 3;
-}
-kQuery.isArray = function(str){
-	return kQuery.isObject(str) && length in str 
-}
-kQuery.isObject = function(str){
-	return typeof str === 'object';
-}
-kQuery.trim = function(str){
-	if(kQuery.isString(str)){
-		//用正则去掉字符串的前后空格
-		return str.replace(/^\s+|\s+$/g,'');
-	}else{
-		return str;
-	}	
-}
 
 
 kQuery.fn.init.prototype = kQuery.fn;
