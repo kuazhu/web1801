@@ -2,7 +2,7 @@
 * @Author: TomChen
 * @Date:   2018-06-03 11:37:17
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-06-05 20:43:35
+* @Last Modified time: 2018-06-06 19:59:01
 */
 //kQuery的基本结构是一个闭包
 (function(window, undefined){
@@ -116,6 +116,9 @@ kQuery.fn = kQuery.prototype = {
 kQuery.extend = kQuery.fn.extend  = function(obj){
 	for(key in obj){
 		this[key] = obj[key];
+		//kQuery['isFunction'] = 	function(str){
+		// 	return typeof str === 'function';
+		// },
 	}
 }
 
@@ -188,6 +191,103 @@ kQuery.extend({
 		return retArr;
 	}
 });
+
+//kquery对象上的属性相关的操作方法
+kQuery.fn.extend({
+	html:function(content){
+		if(content){
+			//设置所有DOM原始的innerHTML
+			this.each(function(){
+				this.innerHTML = content;
+			})
+			return this;
+		}else{
+			return this[0].innerHTML;
+		}
+	},
+	text:function(content){
+		if(content){
+			this.each(function(){
+				this.innerText = content;
+			});
+			return this;
+		}else{
+			var str = '';
+			this.each(function(){
+				str += this.innerText;
+			});
+			return str;
+		}
+	},
+	attr:function(arg1,arg2){
+		if(kQuery.isObject(arg1)){//是对象的情况
+			//设置所有的DOM属性值为对象中的所有值
+			this.each(function(){
+				var dom = this;
+				kQuery.each(arg1,function(attr,val){
+					dom.setAttribute(attr,val);
+				})
+			})
+
+		}else{
+			if(arguments.length == 1){//传递一个参数的情况
+				//获取第一个DOM节点的属性值
+				return this[0].getAttribute(arg1);
+
+			}else if(arguments.length == 2){//传递两个参数的情况
+				//设置所有DOM的属性值
+				this.each(function(){
+					this.setAttribute(arg1,arg2);
+				});
+			}
+		}
+		return this;
+	},
+	removeAttr:function(attr){
+		if(attr){
+			this.each(function(){
+				this.removeAttribute(attr);
+			})	
+		}
+		return this;
+	},
+	val:function(val){
+		if(val){
+			this.each(function(){
+				this.value = val;
+			});
+			return this;
+		}else{
+			return this[0].value;
+		}
+	},
+	css:function(arg1,arg2){
+		if(kQuery.isString(arg1)){//是字符串的情况
+			if(arguments.length == 1){
+				//获取第一个元素对应的样式值
+				// return this[0].style[arg1];
+				
+				if(this[0].currentStyle){//兼容低级浏览器
+					return this[0].currentStyle[arg1];
+				}else{
+					return getComputedStyle(this[0],false)[arg1];
+				}
+				
+			}else if(arguments.length == 2){
+				this.each(function(){
+					this.style[arg1] = arg2;
+				});
+			}
+		}else if(kQuery.isObject(arg1)){
+			this.each(function(){
+				for(key in arg1){
+					this.style[key] = arg1[key];
+				}
+			});
+		}
+		return this;
+	}
+})
 
 
 
