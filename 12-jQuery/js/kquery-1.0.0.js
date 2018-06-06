@@ -2,7 +2,7 @@
 * @Author: TomChen
 * @Date:   2018-06-03 11:37:17
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-06-06 19:59:01
+* @Last Modified time: 2018-06-06 20:49:24
 */
 //kQuery的基本结构是一个闭包
 (function(window, undefined){
@@ -285,6 +285,31 @@ kQuery.fn.extend({
 				}
 			});
 		}
+		return this;
+	},
+	hasClass:function(str){
+		var res = false;
+		if(str){
+			//判断是否存在指定单词的正则
+			var reg = eval('/\\b'+str+'\\b/');
+			this.each(function(){
+				//判断传入的参数是否存在在DOM节点的className上
+				if(reg.test(this.className)){
+					res = true;
+					return false;
+				}
+			})
+		}
+		return res;
+	},
+	addClass:function(str){
+		this.each(function(){
+			//如果有参数对应的class不添加,如果没有就添加
+			var $this = kQuery(this);//DOM节点转kquery对象
+			if(!$this.hasClass(str)){
+				this.className =this.className + ' ' + str;
+			}
+		})
 		return this;
 	}
 })

@@ -23,18 +23,20 @@
 		$(function(){
 			$('button')[0].onclick = function(){
 				// console.log($('div').css('width'));
-				console.log($('div').css('width','300px'));
+				// console.log($('div').css('width','300px'));
 				// console.log($('div').css({
 				// 	width:'300px',
 				// 	height:'300px'
 				// }));
+				// console.log($('div').hasClass('box1'));
+				console.log($('div').addClass('box1'));
 			};
 		})
 	</script>
 </head>
 <body>
 	<button>测试</button>
-	<div class="box1" name='bbb'>div1</div>
+	<div class="bbbbox1   box1   ccc " name='bbb'>div1</div>
 	<div class="box2" name='ccc'>div2</div>
 </body>
 </html>
