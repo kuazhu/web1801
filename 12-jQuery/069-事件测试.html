@@ -7,18 +7,29 @@
 	<script src="js/kquery-1.0.0.js"></script>
 	<script>
 		$(function(){
-			$('button').on('click',function(){
+			function test1(){
 				alert('click1');
-			});
+			}
+			function test2(){
+				alert('click1');
+			}
+			$('button').on('click',test1);
 			$('button').on('click',function(){
 				alert('click2');
 			});
+			
 			$('button').on('mouseover',function(){
 				alert('mouseover');
 			});
 			$('button').on('mouseout',function(){
 				alert('mouseout');
-			});							
+			});
+			
+
+			// $('button').off();	
+			// $('button').off('click');					
+			// $('button').off('mouseover');	
+			$('button').off('click',test1);				
 		})
 	</script>
 </head>

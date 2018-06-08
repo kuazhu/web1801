@@ -2,7 +2,7 @@
 * @Author: TomChen
 * @Date:   2018-06-03 11:37:17
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-06-07 20:56:48
+* @Last Modified time: 2018-06-08 19:45:05
 */
 //kQuery的基本结构是一个闭包
 (function(window, undefined){
@@ -457,16 +457,80 @@ kQuery.fn.extend({
 			})
 		}
 		return this;
+	},
+	clone:function(bcopy){
+		var res = [];
+		this.each(function(){
+			var dom = this.cloneNode(true);
+			if(bcopy && this.bucketEvent){//复制事件
+				// dom.bucketEvent = this.bucketEvent;
+				kQuery.each(this.bucketEvent,function(eventName,fnArr){
+					kQuery.each(fnArr,function(){
+						kQuery(dom).on(eventName,this);
+					})
+				});
+			}
+			res.push(dom);			
+		});
+
+		return kQuery(res);
 	}	
 });
 
 //kquery对象上事件相关的方法
 kQuery.fn.extend({
 	on:function(eventName,fn){
+		//click test1
+		//click test2
 		this.each(function(){
 			// this.addEventListener(eventName,fn);
-			kQuery.addEvent(this,eventName,fn);
+			// kQuery.addEvent(this,eventName,fn);
+			/*
+			{
+				'click':[fn1,fn1,fn2],
+				'mouseover':[fn1,fn1,fn2],
+			}
+			*/
+			if(!this.bucketEvent){
+				this.bucketEvent = {};
+			}
+			if(!this.bucketEvent[eventName]){
+				this.bucketEvent[eventName] = []; //bt1DOM.bucketEvent= {click:[test1,f()],mouseover:[]}
+				this.bucketEvent[eventName].push(fn);// bt1DOM.bucketEvent= {click:[test1,f()],mouseover:[f()]}
+				kQuery.addEvent(this,eventName,function(){
+					kQuery.each(this.bucketEvent[eventName],function(){
+						this();
+					})
+				});
+			}else{
+				this.bucketEvent[eventName].push(fn);// bt1DOM.bucketEvent= {click:[test1,f()]}
+			}
 		})	
+	},
+	off:function(eventName,fnName){
+		if(arguments.length == 0){//不传参数,解除所有的事件
+			this.each(function(){
+				this.bucketEvent = {};
+			})
+		}else if(arguments.length == 1){//传递事件名,解除所有事件名对应的事件
+			this.each(function(){
+				if(this.bucketEvent){
+					this.bucketEvent[eventName] = [];
+				}
+			});
+		}else if(arguments.length == 2){//传递事件名和函数名,解除所有事件名和函数名对应的事件
+			this.each(function(){
+				var dom = this;
+				if(this.bucketEvent && this.bucketEvent[eventName]){
+					kQuery.each(this.bucketEvent[eventName],function(index,fn){
+						if(this == fnName){
+							//删除
+							dom.bucketEvent[eventName].splice(index,1);
+						}
+					})
+				}
+			})
+		}
 	}
 });
 
