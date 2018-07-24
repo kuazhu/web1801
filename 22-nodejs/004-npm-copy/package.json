@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "jade": "^1.11.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.16.1"
   }
 }

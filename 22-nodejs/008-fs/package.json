@@ -1,8 +1,8 @@
 {
-  "name": "003-npm",
+  "name": "008-fs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "001-writeSync.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,9 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jade": "^1.11.0"
-  },
-  "devDependencies": {
-    "webpack": "^4.16.1"
+    "uuid": "^3.3.2"
   }
 }
