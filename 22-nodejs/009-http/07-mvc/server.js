@@ -2,7 +2,7 @@
 * @Author: TomChen
 * @Date:   2018-07-26 16:08:46
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-07-28 10:36:43
+* @Last Modified time: 2018-07-28 11:11:16
 */
 const http = require('http');
 const path = require('path');
@@ -41,7 +41,6 @@ const server = http.createServer((req,res)=>{
 			}
 		});
 	}else{//处理动态路由
-		console.log('1:::',pathname);
 		let paths = pathname.split('/');
 		let controller = paths[1] || 'Wish';
 		let action = paths[2] || 'index';

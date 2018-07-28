@@ -2,13 +2,13 @@
 * @Author: TomChen
 * @Date:   2018-07-27 10:29:02
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-07-28 10:11:08
+* @Last Modified time: 2018-07-28 11:23:23
 */
 const fs = require('fs');
 const uuidv1 = require('uuid/v1');
 const path = require('path');
 
-const filePath = path.normalize(__dirname + '/../data/data.json');
+const filePath = path.normalize(__dirname + '/../data/wish.json');
 
 let getRandom = (min,max)=> {	
 	return Math.round(min + (max-min)*Math.random());
