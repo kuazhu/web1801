@@ -2,7 +2,7 @@
 * @Author: TomChen
 * @Date:   2018-07-26 16:08:46
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-07-28 11:11:16
+* @Last Modified time: 2018-07-28 15:19:22
 */
 const http = require('http');
 const path = require('path');
@@ -42,7 +42,7 @@ const server = http.createServer((req,res)=>{
 		});
 	}else{//处理动态路由
 		let paths = pathname.split('/');
-		let controller = paths[1] || 'Wish';
+		let controller = paths[1] || 'Index';
 		let action = paths[2] || 'index';
 		let args = paths.slice(3);
 		let model;
@@ -59,7 +59,6 @@ const server = http.createServer((req,res)=>{
 		if(model[action]){
 			model[action].apply(null,[req,res].concat(args));
 		}
-
 	}
 });
 

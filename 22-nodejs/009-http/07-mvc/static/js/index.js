@@ -2,7 +2,7 @@
 * @Author: Tom
 * @Date:   2018-07-25 14:33:24
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-07-27 16:17:20
+* @Last Modified time: 2018-07-28 15:11:15
 */
 
 (function($){
@@ -50,8 +50,7 @@
 		var self = this;
 		// console.log($this.data('id'));
 		$.ajax({
-			url:'/del',
-			data:'id='+$this.data('id'),
+			url:'/Wish/del/'+$this.data('id'),
 			dataType:'json'
 		})
 		.done(function(data){
@@ -67,7 +66,7 @@
 	$('.sub-btn').on('click',function(){
 		let val = $('#content').val();
 		$.ajax({
-			url:'/add',
+			url:'/Wish/add',
 			data:{content:val},
 			dataType:'json',
 			type:'POST'
