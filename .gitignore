@@ -1,4 +1,5 @@
 .DS_Store
 02-HTML/images/
 **/node_modules
+**/db/journal
 05-blog/static/
