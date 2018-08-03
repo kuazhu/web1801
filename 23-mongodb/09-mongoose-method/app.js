@@ -2,7 +2,7 @@
 * @Author: TomChen
 * @Date:   2018-07-31 16:39:50
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-08-02 15:53:39
+* @Last Modified time: 2018-08-03 09:38:16
 */
 const mongoose = require('mongoose');
 const UserModel = require('./models/user.js')
@@ -23,7 +23,8 @@ db.once('open',()=>{
 	/*
 	UserModel.insertMany({ 
 		name: "Tom",
-		age:'18',
+		age:150,
+		phone:'13681821788',
 		sex:"female",
 		locked:false,
 		friends:["Amy","Andy"]
@@ -31,33 +32,46 @@ db.once('open',()=>{
 		if(!err){
 			console.log(docs)
 		}else{
-			console.log('insert error::',err)
+			console.log('insert error::',err.message)
 		}
 	})
 	*/
 	/*
-	UserModel.findById('5b62aab1e4fbf302f0db948c',(err,doc)=>{
-		if(!err){
-			// console.log(doc.createdAt)
-			//let date = new Date(doc.createdAt);
-			//console.log(date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()," ",date.getHours(),":",date.getMinutes(),":",date.getSeconds());
-			console.log(moment(doc.createdAt,).format('YYYY - MM - DD HH:mm:ss'))
-		}else{
-			console.log('find error::',err)
-		}
-	})
-	*/
 	BlogModel.insertMany({
-		author:"5b62aab1e4fbf302f0db948c",
-		title:"今天好难受",
-		content:"我收到礼物不见了"
-
+		author:'5b62c848aa4b2e068123281e',
+		title:"I am title2",
+		content:"I am content2"
 	},(err,docs)=>{
 		if(!err){
 			console.log(docs)
 		}else{
-			console.log('insert error::',err)
+			console.log('insert error::',err.message)
 		}		
 	})
+	*/
+	/*
+	UserModel.findOne({name:"Tom"},(err,doc)=>{
+		// console.log(doc)
+		BlogModel.find({author:doc._id},(err,docs)=>{
+			console.log(docs)
+		})
+	})
+	*/
 
+	/*
+	UserModel.findOne({name:"Tom"},(err,doc)=>{
+
+		doc.findMyBlogs((err,docs)=>{
+			console.log(docs)
+		})
+		
+	})
+	*/
+	UserModel.findByPhone('13681821788',(err,doc)=>{
+		if(!err){
+			console.log(doc);
+		}else{
+			console.log('findByPhone error::',err);
+		}
+	});
 });
