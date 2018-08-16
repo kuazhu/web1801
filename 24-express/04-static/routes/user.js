@@ -2,13 +2,13 @@
 * @Author: TomChen
 * @Date:   2018-08-03 17:10:35
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-08-04 09:50:46
+* @Last Modified time: 2018-08-03 17:25:13
 */
 const Router = require('express').Router;
 
 const router = Router();
 
-router.get("/getUser",(req,res)=>{
+router.get("/",(req,res)=>{
 	res.send('get user data');
 })
 router.post("/",(req,res)=>{
