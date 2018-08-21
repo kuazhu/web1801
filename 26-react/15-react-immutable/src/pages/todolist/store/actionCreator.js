@@ -2,7 +2,7 @@
 * @Author: TomChen
 * @Date:   2018-08-20 14:57:01
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-08-21 17:11:42
+* @Last Modified time: 2018-08-21 16:57:38
 */
 import * as types from './actionTypes.js'
 import axios from 'axios';

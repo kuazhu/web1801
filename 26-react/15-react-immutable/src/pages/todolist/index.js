@@ -2,7 +2,7 @@
 * @Author: TomChen
 * @Date:   2018-08-16 17:14:09
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-08-21 16:11:17
+* @Last Modified time: 2018-08-21 17:07:12
 */
 import React,{ Component } from 'react';
 import { connect } from 'react-redux'
@@ -13,7 +13,7 @@ import './TodoList.css';
 
 class TodoList extends Component{
 	componentDidMount(){
-		//this.props.handleInit();
+		this.props.handleInit();
 	}
 	render(){
 		//return 只能返回一个
@@ -42,10 +42,9 @@ class TodoList extends Component{
 }
 //store里面的state映射到组件的props上
 const mapStateToProps = (state)=>{
-
 	return {
-		value:state.todolist.value,
-		list:state.todolist.list
+		value:state.get('todolist').get('value'),
+		list:state.get('todolist').get('list')
 	}
 }
 
