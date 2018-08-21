@@ -2,23 +2,23 @@
 * @Author: TomChen
 * @Date:   2018-08-16 17:14:09
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-08-21 15:11:51
+* @Last Modified time: 2018-08-21 15:05:24
 */
 import React,{ Component } from 'react';
 import { connect } from 'react-redux'
 import { Input,Button,Row,Col,List } from 'antd';
-import { chageValueAction,addItemAction,deleteItemAction,getInitDataAction } from './store/actionCreator.js'
+import { actionCreator } from './store'
 //引入css
-import './App.css';
+import './TodoList.css';
 
-class App extends Component{
+class TodoList extends Component{
 	componentDidMount(){
-		this.props.handleInit();
+		//this.props.handleInit();
 	}
 	render(){
 		//return 只能返回一个
 		return(
-			<div className="App">
+			<div className="TodoList">
 			    <Row>
 			      <Col span={18} >
 			      	<Input 
@@ -42,9 +42,10 @@ class App extends Component{
 }
 //store里面的state映射到组件的props上
 const mapStateToProps = (state)=>{
+
 	return {
-		value:state.value,
-		list:state.list
+		value:state.todolist.value,
+		list:state.todolist.list
 	}
 }
 
@@ -52,19 +53,19 @@ const mapStateToProps = (state)=>{
 const mapDispatchToProps = (dispatch)=>{
 	return {
 		handleChange:(e)=>{
-			const action = chageValueAction(e.target.value);
+			const action = actionCreator.chageValueAction(e.target.value);
 			dispatch(action);
 		},
 		handleAdd:()=>{
-			const action = addItemAction();
+			const action = actionCreator.addItemAction();
 			dispatch(action)
 		},
 		handleDelete:(index)=>{
-			const action = deleteItemAction(index);
+			const action = actionCreator.deleteItemAction(index);
 			dispatch(action)
 		},
 		handleInit:()=>{
-			const action = getInitDataAction();
+			const action = actionCreator.getInitDataAction();
 			dispatch(action);
 		}
 	}
@@ -72,4 +73,4 @@ const mapDispatchToProps = (dispatch)=>{
 
 
 //connect方法是让指定的组件和store连接
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(TodoList);

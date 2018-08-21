@@ -1,18 +1,14 @@
 /*
 * @Author: TomChen
-* @Date:   2018-08-17 10:26:29
+* @Date:   2018-08-21 14:39:26
 * @Last Modified by:   TomChen
-* @Last Modified time: 2018-08-21 15:37:13
+* @Last Modified time: 2018-08-21 14:39:53
 */
-*{
-	margin: 0;
-	padding: 0;
-}
-.App{
+.TodoList{
 	width: 400px;
 	margin: 50px auto;
 }
-.App li{
+.TodoList li{
 	list-style: none;
 	width: 100%;
 	border-bottom: 1px dashed gray;
