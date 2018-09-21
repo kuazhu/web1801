@@ -1,0 +1,10 @@
+<view class='container'>
+  <view class='userinfo'>
+    <image class='userinfo-avatar' src='/images/avatar/u1.jpg'></image>
+    <text class='userinfo-name'>Tom</text>
+  </view>
+  <view class='motto' bindtap="tapMotto">
+      <!--<text class='motto-text' catchtap="tapText">开启之旅</text>-->
+      <text class='motto-text'>开启之旅</text>
+  </view>
+</view>

@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "pages/article/article",
+    "pages/article/article-detail/article-detail",
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#b21122",
+    "enablePullDownRefresh":true
+  }
+}
