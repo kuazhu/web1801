@@ -3,6 +3,6 @@
   <view class="movie-item-box">
     <image class='cover-img' src='{{coverImg}}'></image>
     <text class='title'> {{title}} </text>
-    <template is="starTemplate" data="{{score}}" />
+    <template is="starTemplate" data="{{score:score,stars:stars}}" />
   </view>
 </template>

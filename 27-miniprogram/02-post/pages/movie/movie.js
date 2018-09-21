@@ -1,4 +1,5 @@
-// pages/movie/movie.js
+var { coverStarsToArray } = require('../../utils/utils.js');
+var app = getApp();
 Page({
 
   /**
@@ -13,22 +14,26 @@ Page({
    */
   onLoad: function (options) {
     var _this = this;
-    this.getData('http://t.yushu.im/v2/movie/in_theaters?start=0&count=3', function (data) {
+    var baseUrl = app.G_DATA.baseUrl;
+    var inTheatersUrl = baseUrl + 'v2/movie/in_theaters?start=0&count=3';
+    var comingSoonUrl = baseUrl + 'v2/movie/coming_soon?start=0&count=3';
+    var top250Url = baseUrl + 'v2/movie/top250?start=0&count=3';
+    this.getData(inTheatersUrl, function (data) {
       _this.setData({
         inTheatersData: data,
-        tag: '正在热映'
+        inTheatersTag: '正在热映'
       })
     })
-    this.getData('http://t.yushu.im/v2/movie/coming_soon?start=0&count=3', function (data) {
+    this.getData(comingSoonUrl, function (data) {
       _this.setData({
         comingSoonData: data,
-        tag: '即将上映'
+        comingSoonTag: '即将上映'
       })
     }),
-      this.getData('http://t.yushu.im/v2/movie/top250?start=0&count=3', function (data) {
+      this.getData(top250Url, function (data) {
         _this.setData({
           top250Data: data,
-          tag: '豆瓣Top250'
+          top250Tag: '豆瓣Top250'
         })
       })    
   },
@@ -50,7 +55,7 @@ Page({
       arr.push({
         coverImg: data.subjects[i].images.large,
         title: data.subjects[i].title,
-        stars: data.subjects[i].rating.stars,
+        stars: coverStarsToArray(data.subjects[i].rating.stars),
         score: data.subjects[i].rating.average
       })
     }
