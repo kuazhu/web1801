@@ -1,0 +1,10 @@
+<template name="starTemplate">
+  <view class='start-box'>
+    <image src='/images/icon/star-active.png'></image>
+    <image src='/images/icon/star-active.png'></image>
+    <image src='/images/icon/star-active.png'></image>
+    <image src='/images/icon/star-active.png'></image>
+    <image src='/images/icon/star-active.png'></image>
+    <text class='score'>{{score}}</text>
+  </view>
+</template>

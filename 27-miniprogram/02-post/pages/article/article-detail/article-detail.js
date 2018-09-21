@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    isPlayingMusic:false
   },
 
   /**
@@ -19,12 +19,6 @@ Page({
     this.setData(article);
 
     //设置收藏状态
-    /*
-      {
-        "0":false,
-        "1":true
-      }
-    */
     var articlesCollection = wx.getStorageSync('articles_collection');
     var currentIsCollected = false;
     if (articlesCollection){
@@ -36,6 +30,20 @@ Page({
     }
     this.setData({
       currentIsCollected: currentIsCollected
+    })
+
+    //监听音乐播放
+    var _this = this;
+    var backgroundAudioManager = wx.getBackgroundAudioManager();
+    backgroundAudioManager.onPlay(function(){
+      _this.setData({
+        isPlayingMusic:true
+      })
+    })
+    backgroundAudioManager.onPause(function(){
+      _this.setData({
+        isPlayingMusic: false
+      })
     })
 
   },
@@ -75,6 +83,9 @@ Page({
     */
     
   },
+  /**
+   * 处理分享
+   */
   tapShare:function(){
     var itemList = ['分享到微信','分享到微博','分享到QQ'];
     wx.showActionSheet({
@@ -85,5 +96,26 @@ Page({
         })
       }
     })
+  },
+  /**
+   * 处理音乐
+   */
+  tapMusic:function(){
+    var backgroundAudioManager =  wx.getBackgroundAudioManager();
+    var isPlayingMusic = !!this.data.isPlayingMusic;
+    if (isPlayingMusic){
+      backgroundAudioManager.pause();
+      this.setData({
+        isPlayingMusic: false
+      })    
+    }else{
+      backgroundAudioManager.src = this.data.music.src;
+      backgroundAudioManager.title = this.data.music.title;
+      backgroundAudioManager.coverImgUrl = this.data.music.coverImgUrl;     
+      backgroundAudioManager.play();
+      this.setData({
+        isPlayingMusic:true
+      })     
+    }
   }
 })

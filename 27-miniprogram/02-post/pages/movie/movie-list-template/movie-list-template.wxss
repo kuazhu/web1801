@@ -1,0 +1,23 @@
+@import '../movie-item-template/movie-item-template.wxss';
+.movie-list-box{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.movie-list-box .head{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.movie-list-box .head .tag,
+.movie-list-box .head .more{
+  font-size: 32rpx;
+  color: #333;
+}
+.movie-list-box .list{
+  display: flex;
+  flex-direction: row;
+}

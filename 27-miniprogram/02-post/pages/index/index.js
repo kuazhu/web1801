@@ -1,6 +1,6 @@
 Page({
   tapMotto:function(){
-    wx.redirectTo({
+    wx.switchTab({
       url: '../article/article',
     })
   }

@@ -1,7 +1,7 @@
 <view>
   <view class='article-detail-img'>
     <image class='article-detail-img-main' src='{{img}}'></image>
-    <image class='article-detail-img-music' src='/images/icon/music-start.png'></image>
+    <image catchtap='tapMusic' class='article-detail-img-music' src='{{isPlayingMusic ? "/images/icon/music-stop.png" : "/images/icon/music-start.png"}}'></image>
   </view>
   <view class='article-detail-head'>
     <image class='article-detail-head-avatar' src='{{avatar}}'></image>
