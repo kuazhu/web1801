@@ -10,7 +10,31 @@ function coverStarsToArray(stars){
   }
   return arr;
 }
-
+function formatData(data) {
+  var arr = [];
+  for (var i = 0; i < data.subjects.length; i++) {
+    arr.push({
+      coverImg: data.subjects[i].images.large,
+      title: data.subjects[i].title,
+      stars: coverStarsToArray(data.subjects[i].rating.stars),
+      score: data.subjects[i].rating.average
+    })
+  }
+  return arr;
+}
+function getMovieListData(url, success) {
+  wx.request({
+    url: url,
+    header: {
+      'content-type': 'application/json' // 默认值
+    },
+    success(res) {
+      success(formatData(res.data));
+    }
+  })
+}
 module.exports = {
-  coverStarsToArray: coverStarsToArray
+  coverStarsToArray: coverStarsToArray,
+  getMovieListData: getMovieListData
+
 }

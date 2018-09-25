@@ -1,27 +1,27 @@
 {
   "pages": [
-    "pages/movie/movie",
     "pages/index/index",
+    "pages/movie/movie",
+    "pages/movie/movie-more/movie-more",
     "pages/article/article",
     "pages/article/article-detail/article-detail"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#b21122",
-    "enablePullDownRefresh":true
+    "navigationBarBackgroundColor": "#b21122"
   },
   "tabBar": {
     "selectedColor":"#b21122",
     "borderStyle":"white",
     "position":"bottom",
-    "list": [
-      {
-        "pagePath": "pages/movie/movie",
-        "text": "电影"
-      },      
+    "list": [     
       {
         "pagePath": "pages/article/article",
         "text": "文章"
-      }
+      },
+      {
+        "pagePath": "pages/movie/movie",
+        "text": "电影"
+      }      
     ]
   }  
 }
